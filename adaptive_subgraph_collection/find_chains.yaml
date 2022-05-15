@@ -1,0 +1,33 @@
+command:
+- ${interpreter}
+- ${program}
+- --use_gold_entities
+- ${args}
+method: grid
+name: MetaQA-find-chains-1-hop
+parameters:
+  dataset_name:
+    value: metaqa
+  train_file:
+    value: /gypsum/scratch1/rajarshi/cbr-weak-supervision/MetaQA-synthetic/1-hop/train.json
+  metaqa_kb_file:
+    value: /gypsum/scratch1/rajarshi/cbr-weak-supervision/MetaQA-synthetic/1-hop/kb.txt
+  job_id:
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+  output_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/MetaQA-synthetic/1-hop
+  total_jobs:
+    value: 10
+  use_wandb:
+    value: 1
+program: adaptive_subgraph_collection/find_chains_in_full_KB.py

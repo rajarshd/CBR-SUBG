@@ -1,0 +1,87 @@
+command:
+  - ${interpreter}
+  - ${program}
+  - --do_train
+  - --do_eval
+  - ${args}
+method: bayes
+metric:
+  goal: maximize
+  name: dev_avg_hits@1
+name: FB15k-237
+parameters:
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  data_dir:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/FB15k-237
+  dataset_name:
+    value: FB15k-237
+  dist_metric:
+    value: cosine
+  eval_batch_size:
+    value: 1
+  eval_steps:
+    value: 1000
+  gradient_accumulation_steps:
+    values:
+      - 1
+      - 4
+      - 8
+      - 16
+      - 32
+  learning_rate:
+    distribution: uniform
+    max: 0.001
+    min: 0.0001
+  logging_steps:
+    value: 10
+  loss_metric:
+    value: margin
+  margin:
+    max: 1.0
+    min: 0.0
+  max_grad_norm:
+    value: 1
+  num_gcn_layers:
+    values:
+      - 2
+      - 3
+  num_neighbors_eval:
+    value: 1
+  num_gcn_layers:
+    value: 3
+  num_neighbors_eval:
+    value: 5
+  num_neighbors_train:
+    value: 1
+  num_train_epochs:
+    value: 20
+  output_dir:
+    value: /mnt/nfs/work1/mccallum/rajarshi/cbr-weak-supervision/expts/FB15K-237/
+  save_steps:
+    value: 80
+  save_total_limit:
+    value: 5
+  task:
+    value: kbc
+  temperature:
+    distribution: uniform
+    max: 10
+    min: 0.01
+  train_batch_size:
+    value: 1
+  transform_input:
+    value: 1
+  use_fast_rgcn:
+    value: 1
+  use_wandb:
+    value: 1
+  paths_file_kbc:
+    values: [ "paths_1000_len_3.pkl", "paths_2000_len_3.pkl", "paths_5000_len_3.pkl" ]
+  dist_aggr1:
+    values: [ "none", "mean", "sum" ]
+program: runner.py
+project: cbr-weak-supervision
+

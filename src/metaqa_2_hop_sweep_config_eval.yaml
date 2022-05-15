@@ -1,0 +1,51 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_eval
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: dev_avg_weak_hits@1
+name: MetaQA-2hop-txent-eval
+project: cbr-weak-supervision
+parameters:
+  output_dir:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/expts/metaqa_2hop/
+  data_dir:
+    value: /mnt/nfs/scratch1/agodbole/cbr-weak-supervision/outputs/MetaQA-synthetic/2-hop/
+  model_ckpt_path:
+    value: ../outputs/metaqa_2hop/out-210916_162411_efa4fa4d/pytorch_model.bin
+  dataset_name:
+    value: metaqa_2hop
+  num_gcn_layers:
+    value: 3
+  loss_metric:
+    value: cosine_xent
+  transform_input:
+    value: 0
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  logging_steps:
+    value: 10
+  eval_steps:
+    value: 1024
+  save_steps:
+    value: 80
+  train_batch_size:
+    value: 1
+  eval_batch_size:
+    value: 1
+  max_grad_norm:
+    value: 1.0
+  use_wandb:
+    value: 1
+  num_neighbors_train:
+    value: 1
+  num_neighbors_eval:
+    values: [10, 15, 20, 7, 5]
+program: runner.py
+
+

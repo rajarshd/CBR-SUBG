@@ -1,0 +1,15 @@
+ommand:
+  - ${interpreter}
+  - ${program}
+  - ${args}
+method: grid
+name: KNN-gen
+parameters:
+  pooling:
+    values: [mean_pool, cls_pool]
+  use_masked_questions:
+    values: [1, 0]
+  model:
+    values: [sentence-transformers/all-MiniLM-L6-v2, roberta-base]
+program: scripts/process_webqsp_cwq.py
+project: cbr-weak-supervision

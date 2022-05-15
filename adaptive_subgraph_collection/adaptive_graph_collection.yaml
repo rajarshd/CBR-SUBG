@@ -1,0 +1,38 @@
+command:
+- ${interpreter}
+- ${program}
+- --use_gold_entities
+- ${args}
+method: grid
+name: MetaQA-adaptive-subgraph-collection-test
+parameters:
+  collected_chains_file:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/MetaQA-synthetic/1-hop/metaqa_train_chains_1_hop.pkl
+  dataset_name:
+    value: metaqa
+  input_file:
+    value: /gypsum/scratch1/rajarshi/cbr-weak-supervision/MetaQA-synthetic/1-hop/test.json
+  job_id:
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  k:
+    values:
+    - 10
+    - 25
+    - 50
+    - 75
+  knn_file:
+    value: /gypsum/scratch1/rajarshi/cbr-weak-supervision/MetaQA-synthetic/1-hop/test.json
+  out_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/MetaQA-synthetic/1-hop/
+  split:
+    value: test
+  total_jobs:
+    value: 5
+  use_wandb:
+    value: 1
+program: adaptive_subgraph_collection/adaptive_graph_collection.py

@@ -1,0 +1,83 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_train
+- --do_eval
+- ${args}
+method: bayes
+metric:
+  goal: maximize
+  name: best_dev_avg_hits@1
+name: rgcn-v3
+parameters:
+  add_dist_feature:
+    distribution: categorical
+    values:
+    - 0
+    - 1
+  add_inv_edges_to_edge_index:
+    distribution: categorical
+    values:
+    - 0
+    - 1
+  data_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/synthetic/outputs/dset4/
+  dataset_name:
+    value: synthetic
+  eval_steps:
+    value: 20
+  gcn_dim:
+    distribution: categorical
+    values:
+    - 16
+    - 32
+    - 64
+  learning_rate:
+    distribution: log_uniform
+    max: -4.6
+    min: -11.5
+  logging_steps:
+    value: 10
+  dist_metric:
+    distribution: categorical
+    values:
+    - l2
+    - cosine
+  loss_metric:
+    value: margin
+  margin:
+    distribution: uniform
+    max: 2
+    min: 0
+  num_gcn_layers:
+    distribution: categorical
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+  num_train_epochs:
+    value: 30
+  output_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/expts/synthetic_expts/
+  save_steps:
+    value: 60
+  save_total_limit:
+    value: 2
+  task:
+    value: pt_match
+  transform_input:
+    distribution: categorical
+    values:
+    - 0
+    - 1
+  use_fast_rgcn:
+    value: 0
+  use_wandb:
+    value: 1
+  weight_decay:
+    distribution: log_uniform
+    max: -2.3
+    min: -20
+program: runner.py
+project: cbr-weak-supervision

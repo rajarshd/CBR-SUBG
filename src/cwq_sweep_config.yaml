@@ -1,0 +1,132 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_train
+- ${args}
+method: bayes
+metric:
+  goal: maximize
+  name: best_dev_avg_weak_hits@1
+name: CWQ-Query-Aware-Txent
+parameters:
+  adaptive_subgraph_k:
+    value: 25
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  data_dir:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/CWQ/
+  data_file_suffix:
+    value: roberta-base_mean_pool_masked
+  dataset_name:
+    value: CWQ
+  dist_aggr1:
+    value: mean
+  dist_aggr2:
+    value: mean
+  dist_metric:
+    values:
+    - l2
+    - cosine
+  eval_batch_size:
+    value: 1
+  eval_steps:
+    value: 256
+  gcn_dim:
+    values:
+    - 16
+    - 32
+    - 48
+  gradient_accumulation_steps:
+    values:
+    - 2
+    - 4
+    - 8
+  learning_rate:
+    distribution: log_uniform
+    max: -3
+    min: -9.21
+  logging_steps:
+    value: 10
+  loss_metric:
+    value: txent
+  max_grad_norm:
+    value: 1
+  num_gcn_layers:
+    value: 3
+  num_neighbors_eval:
+    value: 5
+  num_neighbors_train:
+    distribution: int_uniform
+    max: 7
+    min: 1
+  num_train_epochs:
+    value: 15
+  output_dir:
+    value: /mnt/nfs/work1/mccallum/rajarshi/cbr-weak-supervision/expts/CWQ/
+  pooling_type:
+    values:
+    - pooler
+    - cls
+    - mean_pool
+  precomputed_query_encoding_dir:
+    values:
+    - /mnt/nfs/scratch1/agodbole/cbr-weak-supervision/outputs/cwq/roberta-base_cls/
+    - /mnt/nfs/scratch1/agodbole/cbr-weak-supervision/outputs/cwq/roberta-base_mean_pool/
+    - /mnt/nfs/scratch1/agodbole/cbr-weak-supervision/outputs/cwq/roberta-base_pooler/
+  query_attn_activation:
+    values:
+    - softmax
+    - sigmoid
+  query_attn_type:
+    values:
+    - full
+    - dim
+    - sep
+  query_encoder_model:
+    value: roberta-base
+  query_proj_dim:
+    values:
+    - 32
+    - 64
+  save_steps:
+    value: 80
+  save_total_limit:
+    value: 1
+  task:
+    value: pt_match
+  temperature:
+    distribution: uniform
+    max: 10
+    min: 0.01
+  train_batch_size:
+    value: 1
+  train_query_encoder:
+    values:
+    - 0
+    - 1
+  transform_input:
+    value: 1
+  transform_query:
+    values:
+    - 0
+    - 1
+  use_fast_rgcn:
+    value: 1
+  use_query_aware_gcn:
+    value: 1
+  use_wandb:
+    value: 1
+  warmup_steps:
+    values:
+    - 0
+    - 100
+    - 500
+  weight_decay:
+    values:
+    - 0
+    - 0.01
+    - 0.001
+program: runner.py
+project: cbr-weak-supervision

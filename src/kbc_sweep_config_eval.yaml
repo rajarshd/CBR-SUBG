@@ -1,0 +1,72 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_eval
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: dev_avg_hits@1
+name: FB15k-237-eval
+project: cbr-weak-supervision
+parameters:
+  task:
+    value: kbc
+  output_dir:
+    value: /mnt/nfs/work1/mccallum/rajarshi/cbr-weak-supervision/expts/
+  data_dir:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/FB15k-237
+  model_ckpt_path:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/expts/out-211012_024216_980d43be/pytorch_model.bin
+  dataset_name:
+    value: FB15k-237
+  num_gcn_layers:
+    value: 3
+  loss_metric:
+    value: margin
+  dist_metric:
+    value: cosine
+  temperature:
+    value: 7.4297089204383715
+  gradient_accumulation_steps:
+    value: 4
+  transform_input:
+    value: 0
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  logging_steps:
+    value: 10
+  eval_steps:
+    value: 1000
+  save_steps:
+    value: 80
+  save_total_limit:
+    value: 5
+  train_batch_size:
+    value: 4
+  eval_batch_size:
+    value: 1
+  num_train_epochs:
+    value: 20
+  max_grad_norm:
+    value: 1.0
+  use_wandb:
+    value: 1
+  num_neighbors_train:
+    value: 1
+  num_neighbors_eval:
+    values:
+    - 1
+    - 3
+    - 5
+    - 7
+    - 10
+    - 15
+    - 20
+  use_fast_rgcn:
+    value: 1
+  paths_file_kbc:
+    value: paths_2000_len_3.pkl
+program: runner.py

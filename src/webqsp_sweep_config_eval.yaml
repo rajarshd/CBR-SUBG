@@ -1,0 +1,68 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_eval
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: dev_avg_hits@1
+name: WebQSP-eval
+project: cbr-weak-supervision
+parameters:
+  task:
+    value: pt_match
+  output_dir:
+    value: /mnt/nfs/work1/mccallum/rajarshi/cbr-weak-supervision/expts/webqsp/
+  data_dir:
+    value: /mnt/nfs/scratch1/rajarshi/cbr-weak-supervision/webqsp/
+  model_ckpt_path:
+    value: /mnt/nfs/work1/mccallum/rajarshi/cbr-weak-supervision/expts/webqsp/out-211014_213721_9344340e/pytorch_model.bin
+  dataset_name:
+    value: webqsp
+  num_gcn_layers:
+    value: 3
+  dist_metric:
+    value: cosine
+  temperature:
+    value: 0.06391310701301114
+  transform_input:
+    value: 1
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  logging_steps:
+    value: 10
+  eval_steps:
+    value: 100
+  save_steps:
+    value: 80
+  save_total_limit:
+    value: 5
+  train_batch_size:
+    value: 1
+  eval_batch_size:
+    value: 1
+  num_train_epochs:
+    value: 50
+  max_grad_norm:
+    value: 1.0
+  use_wandb:
+    value: 1
+  num_neighbors_train:
+    value: 1
+  num_neighbors_eval:
+    values:
+    - 1
+    - 3
+    - 5
+    - 7
+    - 10
+    - 15
+    - 20
+  use_fast_rgcn:
+    value: 1
+  log_eval_result:
+    value: 1
+program: runner.py

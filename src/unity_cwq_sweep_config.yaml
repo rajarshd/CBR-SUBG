@@ -1,0 +1,79 @@
+command:
+- ${interpreter}
+- ${program}
+- --do_train
+- --do_eval
+- --do_predict
+- ${args}
+method: bayes
+metric:
+  goal: maximize
+  name: best_dev_avg_weak_hits@1
+name: CWQ-txent-adaptive-25
+parameters:
+  adaptive_subgraph_k:
+    value: 25
+  add_dist_feature:
+    value: 1
+  add_inv_edges_to_edge_index:
+    value: 1
+  data_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/CWQ
+  dataset_name:
+    value: CWQ
+  dist_metric:
+    value: l2
+  eval_batch_size:
+    value: 1
+  eval_steps:
+    value: 100
+  gradient_accumulation_steps:
+    values:
+    - 4
+    - 8
+    - 16
+  learning_rate:
+    distribution: uniform
+    max: 0.01
+    min: 0.0001
+  logging_steps:
+    value: 10
+  loss_metric:
+    value: txent
+  max_grad_norm:
+    value: 1
+  num_gcn_layers:
+    value: 3
+  num_neighbors_eval:
+    values:
+    - 5
+    - 7
+  num_neighbors_train:
+    values:
+    - 3
+    - 5
+    - 7
+  num_train_epochs:
+    value: 15
+  output_dir:
+    value: /home/rajarshidas_umass_edu/scratch/cbr-weak-supervision/expts
+  save_steps:
+    value: 80
+  save_total_limit:
+    value: 1
+  task:
+    value: pt_match
+  temperature:
+    distribution: log_uniform
+    max: 0
+    min: -6.907
+  train_batch_size:
+    value: 1
+  transform_input:
+    value: 1
+  use_fast_rgcn:
+    value: 1
+  use_wandb:
+    value: 1
+program: src/runner.py
+project: cbr-weak-supervision
